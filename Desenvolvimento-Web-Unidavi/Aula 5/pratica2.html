@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prática 2</title>
+    <style>
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+      th, td {
+          border: 1px solid black;
+          text-align: center;
+          padding: 5px;
+      }
+      th[colspan] {
+          background-color: gray;
+          color: white;
+      }
+      tr:nth-child(2) th {
+          background-color: white;
+          color: black;
+      }
+      .total {
+          /* background-color: gray; */
+          font-weight: bold;
+      }
+      .aluno {
+        background-color: grey;
+        color: white;
+      }
+    </style>
+</head>
+<body>
+  <main>
+    <h2>Notas dos Alunos</h2>
+
+    <button onclick="adicionarLinha()">Adicionar Linha Totalizadora</button>
+    <button onclick="adicionarColuna()">Adicionar Coluna Totalizadora</button>
+
+    <table id="tabela">
+      <tr>
+        <th rowspan="2" class="aluno">Aluno</th>
+        <th colspan="3">Semestre 1</th>
+        <th colspan="3">Semestre 2</th>
+        <th colspan="3">Semestre 3</th>
+      </tr>
+      <tr>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Nota 3</th>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Nota 3</th>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Nota 3</th>
+      </tr>
+      <tr>
+        <td>João</td>
+        <td class="nota">10</td>
+        <td class="nota">8</td>
+        <td class="nota">9</td>
+        <td class="nota">6</td>
+        <td class="nota">8.7</td>
+        <td class="nota">10</td>
+        <td class="nota">6</td>
+        <td class="nota">7</td>
+        <td class="nota">9</td>
+      </tr>
+      <tr>
+        <td>Maria</td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+      </tr>
+      <tr>
+        <td>José</td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+      </tr>
+      <tr>
+        <td>Paulo</td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+      </tr>
+      <tr>
+        <td>Miguel</td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+      </tr>
+      <tr>
+        <td>Julia</td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+        <td class="nota"></td><td class="nota"></td><td class="nota"></td>
+      </tr>
+    </table>
+  </main>
+
+  <script>
+    function adicionarLinha() {
+      let tabela = document.getElementById("tabela");
+      let linhas = tabela.rows.length;
+      let colunas = tabela.rows[1].cells.length;
+
+      if (tabela.rows[linhas - 1].cells[0].innerText === "Médias") {
+        alert("A linha totalizadora já foi adicionada!");
+        return;
+      }
+
+      let novaLinha = tabela.insertRow(-1);
+      novaLinha.classList.add("total");
+
+      let celulaTitulo = novaLinha.insertCell(0);
+      celulaTitulo.innerText = "Médias";
+
+      for (let c = 1; c < colunas; c++) {
+        let soma = 0;
+        let qtd = 0;
+        for (let l = 2; l < linhas; l++) {
+          let valor = parseFloat(tabela.rows[l].cells[c].innerText);
+          if (!isNaN(valor)) {
+            soma += valor;
+            qtd++;
+          }
+        }
+        let media = qtd > 0 ? (soma / qtd).toFixed(2) : "-";
+        let celula = novaLinha.insertCell(c);
+        celula.innerText = media;
+      }
+    }
+
+    function adicionarColuna() {
+      let tabela = document.getElementById("tabela");
+      let linhas = tabela.rows.length;
+
+      if (tabela.rows[0].cells[tabela.rows[0].cells.length - 1].innerText === "Média") {
+        alert("A coluna totalizadora já foi adicionada!");
+        return;
+      }
+
+      tabela.rows[0].insertCell(-1).outerHTML = "<th rowspan='2'>Média</th>";
+
+      for (let l = 2; l < linhas; l++) {
+        let qtd = 0;
+        let soma = 0;
+        let cols = tabela.rows[l].cells.length;
+        for (let c = 1; c < cols; c++) {
+          let valor = parseFloat(tabela.rows[l].cells[c].innerText);
+          if (!isNaN(valor)) {
+            soma += valor;
+            qtd++;
+          }
+        }
+        let media = qtd > 0 ? (soma / qtd).toFixed(2) : "-";
+        let celula = tabela.rows[l].insertCell(-1);
+        celula.innerText = media;
+        celula.classList.add("total");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Aula 5 - Calculadora</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+      font-family: Arial, sans-serif;
+    }
+
+    .calculadora {
+      width: 260px;
+      background: #000;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    }
+
+    #display {
+      width: 100%;
+      height: 60px;
+      font-size: 2em;
+      color: white;
+      text-align: right;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #333;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      height: 60px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+    }
+
+    .btn-gray { background: #a5a5a5; color: black; }
+    .btn-dark { background: #333; }
+    .btn-orange { background: orange; }
+    .btn-zero { grid-column: span 2; border-radius: 40px; text-align: left; padding-left: 25px; }
+
+    /* Cores dinâmicas do resultado */
+    .positivo { background: green !important; }
+    .negativo { background: red !important; }
+    .zero { background: gray !important; }
+  </style>
+</head>
+<body>
+  <div class="calculadora">
+    <div id="display">0</div>
+    <div class="buttons">
+      <button class="btn-gray" onclick="limpar()">AC</button>
+      <button class="btn-gray" onclick="inserir('%')">%</button>
+      <button class="btn-gray" onclick="inserir('/')">÷</button>
+      <button class="btn-orange" onclick="inserir('/')">/</button>
+
+      <button class="btn-dark" onclick="inserir('7')">7</button>
+      <button class="btn-dark" onclick="inserir('8')">8</button>
+      <button class="btn-dark" onclick="inserir('9')">9</button>
+      <button class="btn-orange" onclick="inserir('*')">×</button>
+
+      <button class="btn-dark" onclick="inserir('4')">4</button>
+      <button class="btn-dark" onclick="inserir('5')">5</button>
+      <button class="btn-dark" onclick="inserir('6')">6</button>
+      <button class="btn-orange" onclick="inserir('-')">−</button>
+
+      <button class="btn-dark" onclick="inserir('1')">1</button>
+      <button class="btn-dark" onclick="inserir('2')">2</button>
+      <button class="btn-dark" onclick="inserir('3')">3</button>
+      <button class="btn-orange" onclick="inserir('+')">+</button>
+
+      <button class="btn-dark btn-zero" onclick="inserir('0')">0</button>
+      <button class="btn-dark" onclick="inserir('.')">.</button>
+      <button class="btn-orange" onclick="calcular()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let expressao = "";
+
+    function inserir(valor) {
+      if (expressao === "0") expressao = "";
+      expressao += valor;
+      document.getElementById("display").textContent = expressao;
+      resetarCor();
+    }
+
+    function limpar() {
+      expressao = "";
+      const display = document.getElementById("display");
+      display.textContent = "0";
+      resetarCor();
+    }
+
+    function calcular() {
+      const display = document.getElementById("display");
+      try {
+        let resultado = eval(expressao);
+        display.textContent = resultado;
+
+        display.classList.remove("positivo", "negativo", "zero");
+
+        if (resultado > 0) display.classList.add("positivo");
+        else if (resultado < 0) display.classList.add("negativo");
+        else display.classList.add("zero");
+
+        expressao = resultado.toString();
+      } catch {
+        display.textContent = "Erro";
+        expressao = "";
+      }
+    }
+
+    function resetarCor() {
+      const display = document.getElementById("display");
+      display.classList.remove("positivo", "negativo", "zero");
+      display.style.background = "#333";
+    }
+  </script>
+</body>
+</html>
