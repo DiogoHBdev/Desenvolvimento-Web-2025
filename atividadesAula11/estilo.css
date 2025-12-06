@@ -1,0 +1,189 @@
+/* estilo.css - Visual simples e responsivo para o projeto Lab2 */
+
+/* Reset muito leve */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fb;
+  color: #222;
+  padding: 24px;
+  line-height: 1.4;
+}
+
+/* Container central */
+.container {
+  max-width: 980px;
+  margin: 18px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(18, 38, 63, 0.06);
+  padding: 22px;
+}
+
+/* Cabeçalho */
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 14px;
+  color: #0b4a6f;
+}
+
+/* Formulário */
+form {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+button,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #d6dce6;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fbfdff;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6aa7d6;
+  box-shadow: 0 0 0 4px rgba(106,167,214,0.12);
+}
+
+/* Botões */
+button {
+  display: inline-block;
+  padding: 10px 16px;
+  background: linear-gradient(180deg,#1976d2,#115293);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 6px 12px rgba(17,82,147,0.12);
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Links */
+a {
+  color: #115293;
+  text-decoration: none;
+  margin-left: 6px;
+}
+a:hover { text-decoration: underline; }
+
+/* Mensagens de erro / sucesso */
+.msg-error {
+  background: #fff5f5;
+  color: #8b1c1c;
+  border: 1px solid #f1c0c0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.msg-success {
+  background: #f0fff4;
+  color: #1f7a3a;
+  border: 1px solid #bfe6c7;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Tabela */
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef3f8;
+  text-align: left;
+  font-size: 0.95rem;
+}
+th {
+  background: #f7fafc;
+  color: #254b63;
+  font-weight: 700;
+}
+tr:hover td {
+  background: #fbfdff;
+}
+
+/* Pesquisa (form-inline) */
+.form-inline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.form-inline input[type="text"] {
+  flex: 1;
+  margin-bottom: 0;
+}
+.form-inline button {
+  width: auto;
+  padding: 10px 14px;
+}
+
+/* Rodapé de ações */
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Responsividade */
+@media (max-width: 720px) {
+  .container {
+    padding: 16px;
+    margin: 10px;
+  }
+  th, td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  h2 { font-size: 1.3rem; }
+  .form-inline {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+}
+
+/* Pequenos ajustes estéticos */
+small.hint {
+  color: #6b7a86;
+  font-size: 0.85rem;
+  display: block;
+  margin-top: -6px;
+  margin-bottom: 8px;
+}
